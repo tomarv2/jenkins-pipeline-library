@@ -6,7 +6,7 @@ def call(def environment, def serviceName, def dockerPath, def imageTag, def nam
         script {
             try {
                 withCredentials([usernamePassword(credentialsId: 'k8s_cluster_pwd_qa', passwordVariable: 'k8s_pwd', usernameVariable: 'k8s_user')]) {
-                    sh "kubectl set image deployment/${env.serviceName} --namespace=${nameSpace} --server='https://qak8s-master.tomarv2.com' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true ${env.serviceName}=dockerregistry.ecr.us-west-2.amazonaws.com/${env.dockerPath}:${env.imageTag} "
+                    sh "kubectl set image deployment/${env.serviceName} --namespace=${nameSpace} --server='https://qak8s-master.demo.com' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true ${env.serviceName}=dockerregistry.ecr.us-west-2.amazonaws.com/${env.dockerPath}:${env.imageTag} "
                 }
             }
             catch (exc) {sh 'echo pass'}
@@ -16,7 +16,7 @@ def call(def environment, def serviceName, def dockerPath, def imageTag, def nam
         script {
             try {
                 withCredentials([usernamePassword(credentialsId: 'k8s_cluster_pwd_qa', passwordVariable: 'k8s_pwd', usernameVariable: 'k8s_user')]) {
-                    sh "kubectl set image deployment/${env.serviceName} --namespace=${nameSpace} --server='https://qak8s-master.tomarv2.com' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true ${env.serviceName}=dockerregistry.ecr.us-west-2.amazonaws.com/${env.dockerPath}:${env.imageTag} "
+                    sh "kubectl set image deployment/${env.serviceName} --namespace=${nameSpace} --server='https://qak8s-master.demo.com' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true ${env.serviceName}=dockerregistry.ecr.us-west-2.amazonaws.com/${env.dockerPath}:${env.imageTag} "
                 }
             }
             catch (exc) {sh 'echo pass'}
@@ -26,7 +26,7 @@ def call(def environment, def serviceName, def dockerPath, def imageTag, def nam
         script {
             try {
                 withCredentials([usernamePassword(credentialsId: 'k8s_cluster_pwd_aws_prod', passwordVariable: 'k8s_pwd', usernameVariable: 'k8s_user')]) {
-                    sh "kubectl set image deployment/${env.serviceName} --namespace=${nameSpace} --server='https://k8s-master.tomarv2.com' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true ${env.serviceName}=dockerregistry.ecr.us-west-2.amazonaws.com/${env.dockerPath}:${env.imageTag} "
+                    sh "kubectl set image deployment/${env.serviceName} --namespace=${nameSpace} --server='https://k8s-master.demo.com' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true ${env.serviceName}=dockerregistry.ecr.us-west-2.amazonaws.com/${env.dockerPath}:${env.imageTag} "
                 }
             }
             catch (exc) {sh 'echo pass'}
@@ -36,7 +36,7 @@ def call(def environment, def serviceName, def dockerPath, def imageTag, def nam
         script {
             try {
                 withCredentials([usernamePassword(credentialsId: 'k8s_cluster_pwd_aws_prod', passwordVariable: 'k8s_pwd', usernameVariable: 'k8s_user')]) {
-                    sh "kubectl set image deployment/${env.serviceName} --namespace=${nameSpace} --server='https://k8s-master.tomarv2.com' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true ${env.serviceName}=dockerregistry.ecr.us-west-2.amazonaws.com/${env.dockerPath}:${env.imageTag} "
+                    sh "kubectl set image deployment/${env.serviceName} --namespace=${nameSpace} --server='https://k8s-master.demo.com' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true ${env.serviceName}=dockerregistry.ecr.us-west-2.amazonaws.com/${env.dockerPath}:${env.imageTag} "
                 }
             }
             catch (exc) {sh 'echo pass'}
@@ -55,7 +55,7 @@ def call(def environment, def serviceName, def dockerPath, def imageTag, def nam
             }
             steps {
                 withCredentials([usernamePassword(credentialsId: 'k8s_cluster_pwd_qa', passwordVariable: 'k8s_pwd', usernameVariable: 'k8s_user')]) {
-                    sh "kubectl set image deployment/${env.serviceName} --namespace=demo --server='https://qak8s-master.tomarv2.com' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true ${env.serviceName}=dockerregistry.ecr.us-west-2.amazonaws.com/${env.dockerPath}:${env.imageTag} "
+                    sh "kubectl set image deployment/${env.serviceName} --namespace=demo --server='https://qak8s-master.demo.com' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true ${env.serviceName}=dockerregistry.ecr.us-west-2.amazonaws.com/${env.dockerPath}:${env.imageTag} "
                 }
             }
         }

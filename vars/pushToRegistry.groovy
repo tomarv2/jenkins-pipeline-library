@@ -7,6 +7,6 @@ def call(body) {
     body.delegate = config
     body()
 
-    sh "sudo docker tag ${env.serviceName} dcr.tomarv2.com/${env.dockerPath}:${env.image_tag}"
-    sh "sudo docker push dcr.tomarv2.com/${env.dockerPath}:${env.image_tag}"
+    sh "sudo docker tag ${env.serviceName} dcr.demo.com/${env.dockerPath}:${env.image_tag}"
+    sh "sudo docker push dcr.demo.com/${env.dockerPath}:${env.image_tag}"
 }

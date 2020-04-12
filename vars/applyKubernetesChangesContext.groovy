@@ -51,7 +51,7 @@ def call() {
                             try {
                                 if ("${context}".contains("aur-prod")){
                                     withCredentials([usernamePassword(credentialsId: 'k8s_cluster_pwd_prod', passwordVariable: 'k8s_pwd', usernameVariable: 'k8s_user')]) {
-                                        sh "kubectl-v1.6 apply -f kubernetes/${context}/namespace.yaml --server='https://k8s-master1.tomarv2.com' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true "
+                                        sh "kubectl-v1.6 apply -f kubernetes/${context}/namespace.yaml --server='https://k8s-master1.demo.com' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true "
                                     }
                                 }else{
                                     sh  """
@@ -70,7 +70,7 @@ def call() {
                             try {
                                 if ("${context}".contains("aur-prod")){
                                         withCredentials([usernamePassword(credentialsId: 'k8s_cluster_pwd_prod', passwordVariable: 'k8s_pwd', usernameVariable: 'k8s_user')]) {
-                                        sh "kubectl-v1.6 replace -f kubernetes/${context}/${resource} --server='https://k8s-master1.tomarv2.com' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true "
+                                        sh "kubectl-v1.6 replace -f kubernetes/${context}/${resource} --server='https://k8s-master1.demo.com' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true "
                                         }
                                 }else{
                                     sh  """
@@ -84,7 +84,7 @@ def call() {
                             }catch (exc) {
                                 if ("${context}".contains("aur-prod")){
                                     withCredentials([usernamePassword(credentialsId: 'k8s_cluster_pwd_prod', passwordVariable: 'k8s_pwd', usernameVariable: 'k8s_user')]) {
-                                        sh "kubectl-v1.6 apply -f kubernetes/${context}/${resource} --server='https://k8s-master1.tomarv2.com' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true "
+                                        sh "kubectl-v1.6 apply -f kubernetes/${context}/${resource} --server='https://k8s-master1.demo.com' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true "
                                     }
                                 }else{
                                     sh  """

@@ -7,7 +7,7 @@ def call() {
 
 // push to both ECR and DCR for now
 
-def call(serviceName, dockerRepo, imageTag) { // todo: standardize naming conventions, e.g. repository = tomarv2/services/personnel
+def call(serviceName, dockerRepo, imageTag) { // todo: standardize naming conventions, e.g. repository = demo/services/personnel
     
     def serviceNameVar
     def dockerPath
@@ -24,13 +24,13 @@ def call(serviceName, dockerRepo, imageTag) { // todo: standardize naming conven
         imageTagVar = env.imageTag
     }
     
-    sh "docker tag ${serviceNameVar} dcr.tomarv2.com/${dockerPath}:${imageTagVar}"
-    sh "docker push dcr.tomarv2.com/${dockerPath}:${imageTagVar}"
+    sh "docker tag ${serviceNameVar} dcr.demo.com/${dockerPath}:${imageTagVar}"
+    sh "docker push dcr.demo.com/${dockerPath}:${imageTagVar}"
 
 
     // todo: this should probably be done by spinnaker when it deploys an image to QA (or any other environment)
-    sh "docker tag ${serviceNameVar} dcr.tomarv2.com/${dockerPath}:qa"
-    sh "docker push dcr.tomarv2.com/${dockerPath}:qa"
+    sh "docker tag ${serviceNameVar} dcr.demo.com/${dockerPath}:qa"
+    sh "docker push dcr.demo.com/${dockerPath}:qa"
 
 
     try {

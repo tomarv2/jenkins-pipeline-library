@@ -21,7 +21,7 @@ pipeline {
                   env.channel = props.slackChannel
 
                   env.configRepo = 'local-config' // todo: configuration by convention
-                  env.configRepoPath = 'devops.tomarv2.com/scm/xyz/local-config.git' // todo: configuration by convention
+                  env.configRepoPath = 'devops.demo.com/scm/xyz/local-config.git' // todo: configuration by convention
                 }
 
                 sendStartBuildNotification(env.channel)

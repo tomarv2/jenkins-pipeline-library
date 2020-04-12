@@ -6,7 +6,7 @@ def call(def gitProject, def gitRepo) {
         sh "git init"
         sh "git add --all"
         sh "git commit -m 'Initial Commit'"
-        sh "git remote add origin http://${username}:${password}@tomarv2.bitbucket.com/scm/${gitProject}/${gitRepo}.git"
+        sh "git remote add origin http://${username}:${password}@demo.bitbucket.com/scm/${gitProject}/${gitRepo}.git"
         sh "git push -u origin master"
     }
 }

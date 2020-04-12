@@ -11,7 +11,7 @@ def call(def currentBuild) {
 
                 sh "[ -f ~/roer ] || curl -L -o ~/roer https://github.com/spinnaker/roer/releases/download/v0.11.3/roer-linux-amd64  && chmod +x ~/roer"
                 withCredentials([usernamePassword(credentialsId: 'roer', passwordVariable: 'username', usernameVariable: 'password')]) {
-                    sh "SPINNAKER_API=http://k8s-minion1.tomarv2.com:30084  ~/roer --fiatUser ${username} --fiatPass ${password} pipeline save $it"
+                    sh "SPINNAKER_API=http://k8s-minion1.demo.com:30084  ~/roer --fiatUser ${username} --fiatPass ${password} pipeline save $it"
                 }
             }
         }

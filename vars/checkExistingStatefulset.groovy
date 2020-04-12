@@ -20,9 +20,9 @@ def call(def environment, def nameSpace = 'devops') {
         // script {
         //     try {
         //         withCredentials([usernamePassword(credentialsId: 'k8s_cluster_pwd_qa', passwordVariable: 'k8s_pwd', usernameVariable: 'k8s_user')]) {
-        //             sh "kubectl create -f _kube/dev/statefulset.yaml --namespace=${nameSpace} --server='https://kubernetes-dashboard-nodeport.dev-demo-01.np.tomarv2.com:30443' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true "
-        //             sh "kubectl create -f _kube/dev/service.yaml --namespace=${nameSpace} --server='https://kubernetes-dashboard-nodeport.dev-demo-01.np.tomarv2.com:30443' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true "
-        //             sh "kubectl create -f _kube/dev/ingress.yaml --namespace=${nameSpace} --server='https://kubernetes-dashboard-nodeport.dev-demo-01.np.tomarv2.com:30443' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true "
+        //             sh "kubectl create -f _kube/dev/statefulset.yaml --namespace=${nameSpace} --server='https://kubernetes-dashboard-nodeport.dev-demo-01.np.demo.com:30443' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true "
+        //             sh "kubectl create -f _kube/dev/service.yaml --namespace=${nameSpace} --server='https://kubernetes-dashboard-nodeport.dev-demo-01.np.demo.com:30443' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true "
+        //             sh "kubectl create -f _kube/dev/ingress.yaml --namespace=${nameSpace} --server='https://kubernetes-dashboard-nodeport.dev-demo-01.np.demo.com:30443' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true "
         //         }
         //     }
         //     catch (exc) {sh 'echo pass'}
@@ -32,9 +32,9 @@ def call(def environment, def nameSpace = 'devops') {
         script {
             try {
                 withCredentials([usernamePassword(credentialsId: 'k8s_cluster_pwd_qa', passwordVariable: 'k8s_pwd', usernameVariable: 'k8s_user')]) {
-                    sh "kubectl create -f _kube/demo/statefulset.yaml --namespace=demo --server='https://qak8s-master.tomarv2.com' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true "
-                    sh "kubectl create -f _kube/demo/service.yaml --namespace=demo --server='https://qak8s-master.tomarv2.com' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true "
-                    sh "kubectl create -f _kube/demo/ingress.yaml --namespace=demo --server='https://qak8s-master.tomarv2.com' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true "
+                    sh "kubectl create -f _kube/demo/statefulset.yaml --namespace=demo --server='https://qak8s-master.demo.com' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true "
+                    sh "kubectl create -f _kube/demo/service.yaml --namespace=demo --server='https://qak8s-master.demo.com' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true "
+                    sh "kubectl create -f _kube/demo/ingress.yaml --namespace=demo --server='https://qak8s-master.demo.com' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true "
                 }
             }
             catch (exc) {sh 'echo pass'}
@@ -44,9 +44,9 @@ def call(def environment, def nameSpace = 'devops') {
         script {
             try {
                 withCredentials([usernamePassword(credentialsId: 'k8s_cluster_pwd_qa', passwordVariable: 'k8s_pwd', usernameVariable: 'k8s_user')]) {
-                    sh "kubectl create -f _kube/qa/statefulset.yaml --namespace=${nameSpace} --server='https://qak8s-master.tomarv2.com' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true "
-                    sh "kubectl create -f _kube/qa/service.yaml --namespace=${nameSpace} --server='https://qak8s-master.tomarv2.com' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true "
-                    sh "kubectl create -f _kube/qa/ingress.yaml --namespace=${nameSpace} --server='https://qak8s-master.tomarv2.com' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true "
+                    sh "kubectl create -f _kube/qa/statefulset.yaml --namespace=${nameSpace} --server='https://qak8s-master.demo.com' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true "
+                    sh "kubectl create -f _kube/qa/service.yaml --namespace=${nameSpace} --server='https://qak8s-master.demo.com' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true "
+                    sh "kubectl create -f _kube/qa/ingress.yaml --namespace=${nameSpace} --server='https://qak8s-master.demo.com' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true "
                 }
             }
             catch (exc) {sh 'echo pass'}
@@ -56,9 +56,9 @@ def call(def environment, def nameSpace = 'devops') {
         script {
             try {
                 withCredentials([usernamePassword(credentialsId: 'k8s_cluster_pwd_aws_prod', passwordVariable: 'k8s_pwd', usernameVariable: 'k8s_user')]) {
-                    sh "kubectl create -f _kube/stg/statefulset.yaml --namespace=stg-demo --server='https://k8s-master.tomarv2.com' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true "
-                    sh "kubectl create -f _kube/stg/service.yaml --namespace=stg-demo --server='https://k8s-master.tomarv2.com' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true "
-                    sh "kubectl create -f _kube/stg/ingress.yaml --namespace=stg-demo --server='https://k8s-master.tomarv2.com' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true "
+                    sh "kubectl create -f _kube/stg/statefulset.yaml --namespace=stg-demo --server='https://k8s-master.demo.com' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true "
+                    sh "kubectl create -f _kube/stg/service.yaml --namespace=stg-demo --server='https://k8s-master.demo.com' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true "
+                    sh "kubectl create -f _kube/stg/ingress.yaml --namespace=stg-demo --server='https://k8s-master.demo.com' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true "
                 }
             }
             catch (exc) {sh 'echo pass'}
@@ -68,9 +68,9 @@ def call(def environment, def nameSpace = 'devops') {
         script {
             try {
                 withCredentials([usernamePassword(credentialsId: 'k8s_cluster_pwd_aws_prod', passwordVariable: 'k8s_pwd', usernameVariable: 'k8s_user')]) {
-                    sh "kubectl create -f _kube/prod/statefulset.yaml --namespace=${nameSpace} --server='https://k8s-master.tomarv2.com' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true "
-                    sh "kubectl create -f _kube/prod/service.yaml --namespace=${nameSpace} --server='https://k8s-master.tomarv2.com' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true "
-                    sh "kubectl create -f _kube/prod/ingress.yaml --namespace=${nameSpace} --server='https://k8s-master.tomarv2.com' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true "
+                    sh "kubectl create -f _kube/prod/statefulset.yaml --namespace=${nameSpace} --server='https://k8s-master.demo.com' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true "
+                    sh "kubectl create -f _kube/prod/service.yaml --namespace=${nameSpace} --server='https://k8s-master.demo.com' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true "
+                    sh "kubectl create -f _kube/prod/ingress.yaml --namespace=${nameSpace} --server='https://k8s-master.demo.com' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true "
                 }
             }
             catch (exc) {sh 'echo pass'}

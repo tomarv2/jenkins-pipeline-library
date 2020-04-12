@@ -1,10 +1,10 @@
 ## Jenkins Shared Pipeline Libraries
 
-**Medium post:** https://medium.com/@tomarv2/jenkins-shared-libraries-ab64f7acac68
+**Medium post:** https://medium.com/@demo/jenkins-shared-libraries-ab64f7acac68
 
 ***
 
-![Image description](https://files.gitter.im/tomarv2/oy6L/Screen-Shot-2020-04-09-at-9.08.16-PM.png)
+![Image description](https://files.gitter.im/demo/oy6L/Screen-Shot-2020-04-09-at-9.08.16-PM.png)
 
 ***
 

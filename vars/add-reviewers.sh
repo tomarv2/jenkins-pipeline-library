@@ -1,5 +1,5 @@
 #/bin/sh
-BITBUCKET_URL="http://tomarv2.bitbucket.com"
+BITBUCKET_URL="http://demo.bitbucket.com"
 
 BITBUCKET_USER=$1
 BITBUCKET_PASSWORD=$2

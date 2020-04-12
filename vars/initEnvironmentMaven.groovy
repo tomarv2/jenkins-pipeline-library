@@ -6,7 +6,7 @@ def call(def env, def pipelineParams, def currentBuild) {
     env.commitHash = getGitCommitHash()
     env.serviceName = pom.getArtifactId()
     env.namespace = pipelineParams.namespace != null ? pipelineParams.namespace : "services"
-    env.dockerPath = "tomarv2/${env.namespace}/${pom.getArtifactId()}"
+    env.dockerPath = "demo/${env.namespace}/${pom.getArtifactId()}"
     env.serviceVersion = pom.getVersion()
     env.buildChangelog = getChangeDescription(currentBuild)
     env.imageTag = buildDockerTag(env.BRANCH_NAME, env.commitHash)

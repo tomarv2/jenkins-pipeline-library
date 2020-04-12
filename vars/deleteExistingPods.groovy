@@ -21,7 +21,7 @@ def call(def environment, def nameSpace, def serviceName) {
         script {
          //   try {
                 withCredentials([usernamePassword(credentialsId: 'k8s_cluster_pwd_qa', passwordVariable: 'k8s_pwd', usernameVariable: 'k8s_user')]) {
-                    sh "kubectl delete --namespace=demo --server='https://qak8s-master.tomarv2.com' --username=${k8s_user} --password=${k8s_pwd}  --insecure-skip-tls-verify=true pods -l cluster=${serviceName} -n demo --force --grace-period=0"
+                    sh "kubectl delete --namespace=demo --server='https://qak8s-master.demo.com' --username=${k8s_user} --password=${k8s_pwd}  --insecure-skip-tls-verify=true pods -l cluster=${serviceName} -n demo --force --grace-period=0"
                 }
          //   }
          //   catch (exc) {sh 'echo pass'}
@@ -31,7 +31,7 @@ def call(def environment, def nameSpace, def serviceName) {
         script {
          //   try {
                 withCredentials([usernamePassword(credentialsId: 'k8s_cluster_pwd_qa', passwordVariable: 'k8s_pwd', usernameVariable: 'k8s_user')]) {
-                    sh "kubectl delete --server='https://qak8s-master.tomarv2.com' --username=${k8s_user} --password=${k8s_pwd}  --insecure-skip-tls-verify=true pods -l cluster=${serviceName} -n ${nameSpace} --force --grace-period=0"
+                    sh "kubectl delete --server='https://qak8s-master.demo.com' --username=${k8s_user} --password=${k8s_pwd}  --insecure-skip-tls-verify=true pods -l cluster=${serviceName} -n ${nameSpace} --force --grace-period=0"
                 }
          //   }
          //   catch (exc) {sh 'echo pass'}
@@ -41,7 +41,7 @@ def call(def environment, def nameSpace, def serviceName) {
         script {
          //   try {
                 withCredentials([usernamePassword(credentialsId: 'k8s_cluster_pwd_aws_prod', passwordVariable: 'k8s_pwd', usernameVariable: 'k8s_user')]) {
-                    sh "kubectl delete --server='https://k8s-master.tomarv2.com' --username=${k8s_user} --password=${k8s_pwd}  --insecure-skip-tls-verify=true pods -l cluster=${serviceName} -n ${nameSpace} --force --grace-period=0"
+                    sh "kubectl delete --server='https://k8s-master.demo.com' --username=${k8s_user} --password=${k8s_pwd}  --insecure-skip-tls-verify=true pods -l cluster=${serviceName} -n ${nameSpace} --force --grace-period=0"
                 }
          //   }
          //   catch (exc) {sh 'echo pass'}
@@ -51,7 +51,7 @@ def call(def environment, def nameSpace, def serviceName) {
         script {
          //   try {
                 withCredentials([usernamePassword(credentialsId: 'k8s_cluster_pwd_aws_prod', passwordVariable: 'k8s_pwd', usernameVariable: 'k8s_user')]) {
-                    sh "kubectl delete --server='https://k8s-master.tomarv2.com' --username=${k8s_user} --password=${k8s_pwd}  --insecure-skip-tls-verify=true pods -l cluster=${serviceName} -n ${nameSpace} --force --grace-period=0"
+                    sh "kubectl delete --server='https://k8s-master.demo.com' --username=${k8s_user} --password=${k8s_pwd}  --insecure-skip-tls-verify=true pods -l cluster=${serviceName} -n ${nameSpace} --force --grace-period=0"
                 }
          //   }
          //   catch (exc) {sh 'echo pass'}

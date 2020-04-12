@@ -12,7 +12,7 @@ def call(def context, def s3_bucket) {
 
                         while ((retry>0 && ready!=0))
                         do
-                        kubectl  rollout status  -f kubernetes/$context/deployment.yaml --server='https://k8s-master1.tomarv2.com' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true; if((\$?==0)); then ready=0; continue; fi;
+                        kubectl  rollout status  -f kubernetes/$context/deployment.yaml --server='https://k8s-master1.demo.com' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true; if((\$?==0)); then ready=0; continue; fi;
                         ((retry-=1))
                         sleep 10
                         done

@@ -8,7 +8,7 @@ def call(def env) {
 
     def props = readProperties file: 'sonar-project.properties'
     env.serviceName = props['sonar.projectName']
-    env.dockerPath = "tomarv2/${env.registryNamespace}/${env.serviceName}"
+    env.dockerPath = "demo/${env.registryNamespace}/${env.serviceName}"
     env.dockerRepo = env.dockerPath
     env.imageTag = buildDockerTag(env.BRANCH_NAME, env.commitHash)
 //    currentBuild.description = env.image_tag
