@@ -1,0 +1,142 @@
+#!/usr/bin/env groovy
+
+@Library('pipeline-library') _
+
+
+pipeline {
+    options {
+        disableConcurrentBuilds()
+        buildDiscarder(logRotator(numToKeepStr: '5'))
+    }
+    agent { label 'agent-aws' }
+
+    stages {
+        stage('Prepare') {
+            steps {
+                checkout scm
+                sh "git rev-parse --short HEAD > .git/commit-id"
+
+                // grab info from pom file
+                script {
+                    pom = readMavenPom()
+                    def props = readProperties  file: 'env.properties'
+
+                    env.pomVersion = pom.getVersion()
+                    env.commit_id = readFile('.git/commit-id')
+                    env.build_changelog = getChangeString()
+                    env.imageTag = "rev-" + cleanBranchName(env.BRANCH_NAME) + "-${env.commit_id}"
+                    currentBuild.description = env.imageTag
+                    echo env.build_changelog
+                    env.scmUrl = sh(returnStdout: true, script: 'git config remote.origin.url').trim()
+                    echo "${env.scmUrl}"
+
+                    env.serviceName = props.serviceName
+                    env.serviceVersion = props.version
+                    env.dockerRepo = props.dockerRepo
+                    env.channel = props.slackChannel
+                    env.configRepo = props.configRepo
+                    env.configRepoPath = props.configRepoPath
+                }
+
+                sendStartBuildNotification(env.channel)
+
+                withMaven(maven: 'M3') {
+                    sh 'mvn clean -U'
+                }
+            }
+        }
+        stage('Package') {
+            steps {
+                withMaven(maven: 'M3') {
+                    sh 'mvn package -DskipTests'
+                }
+            }
+        }
+        stage('Test') {
+            steps {
+                withMaven(maven: 'M3') {
+                    sh 'mvn org.jacoco:jacoco-maven-plugin:prepare-agent verify'
+                }
+            }
+        }
+        stage('SonarQube') {
+            steps {
+                runSonarQube(env.BRANCH_NAME)
+                script {
+                    env.buildSuccess = true
+                }
+            }
+        }
+        stage('Portability') {
+            agent { label "VM1" }
+            when {
+                expression {
+                    params.portability == 'true'
+                }
+            }
+            steps {
+                sh "docker run --rm  -v ./:/opt/maven -w=/opt/maven maven:3-jdk-8 mvn clean install"
+                sh "docker run --rm  -v ./:/opt/maven -w=/opt/maven maven:3-jdk-11 mvn clean install"
+            }
+        }
+        stage('Containerize') {
+            when {
+                anyOf {
+                    branch "master"
+                }
+            }
+            steps {
+                buildDockerContainer(env.serviceName, env.pomVersion)
+            }
+        }
+        stage('Push To Registry') {
+            when {
+                anyOf {
+                    branch "master"
+                }
+            }
+            steps {
+                tagAndPushDockerContainer(env.serviceName, env.dockerRepo, env.imageTag)
+            }
+        }
+        stage('Update Config Repo Image Tag') {
+            when {
+                branch "master"
+            }
+            steps {
+                updateConfigRepoImageTag(env.dockerRepo, env.imageTag, env.configRepo, env.configRepoPath)
+            }
+        }
+    }
+    post {
+        always {
+            sendEndBuildNotification(currentBuild.currentResult, env.channel, currentBuild.description)
+            sh "docker-compose down"
+        }
+    }
+}
+
+def static cleanBranchName(String branchName) {
+    return branchName.replaceAll("/", "-")
+}
+
+def getChangeString() {
+    MAX_MSG_LEN = 100
+    def changeString = ""
+
+    echo "Gathering SCM changes"
+    def changeLogSets = currentBuild.changeSets
+    for (int i = 0; i < changeLogSets.size(); i++) {
+        def entries = changeLogSets[i].items
+        for (int j = 0; j < entries.length; j++) {
+            def entry = entries[j]
+            truncated_msg = entry.msg.take(MAX_MSG_LEN)
+            changeString += " - ${truncated_msg} [${entry.author}]\n"
+        }
+    }
+
+    if (!changeString) {
+        changeString = " - No new changes"
+    }
+    return changeString
+}

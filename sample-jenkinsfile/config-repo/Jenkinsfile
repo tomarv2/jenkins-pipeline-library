@@ -1,0 +1,61 @@
+#!/usr/bin/env groovy
+
+@Library('pipeline-library') _
+
+pipeline {
+    options {
+        disableConcurrentBuilds()
+        buildDiscarder(logRotator(numToKeepStr: '5'))
+    }
+    agent { label 'devops' }
+
+    environment {
+        channel = "continuous-delivery"
+    }
+
+    stages {
+        stage('Start') {
+            steps {
+                sendStartBuildNotification(env.channel)
+            }
+        }
+        stage('Checkout Source Code') {
+            steps {
+                checkout scm
+
+                script {
+                    currentBuild.description = "config"
+                }
+            }
+        }
+        stage('Apply Kubernetes Definitions') {
+            when {
+                anyOf{
+                    branch "master"
+                    branch "production"
+                }  
+            }
+            steps {
+                applyKubernetesChangesContext()
+            }
+        }
+        stage('Apply Terraform Templates') {
+            when {
+                anyOf{
+                    branch "master"
+                    branch "production"
+                }  
+            }
+            steps {
+                script {
+                    echo "todo: apply terraform templates"
+                }
+            }
+        }
+    }
+    post {
+        always {
+            sendEndBuildNotification(currentBuild.currentResult, env.channel, currentBuild.description)
+        }
+    }
+}

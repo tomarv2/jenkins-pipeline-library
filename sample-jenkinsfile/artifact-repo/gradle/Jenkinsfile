@@ -1,0 +1,86 @@
+#!/usr/bin/env groovy
+
+@Library('pipeline-library') _
+
+pipeline {
+    options {
+        disableConcurrentBuilds()
+        buildDiscarder(logRotator(numToKeepStr: '5'))
+    }
+    agent { label 'agent-java' }
+
+    stages {
+        stage('Start') {
+            steps {
+                script {
+                  def props = readProperties  file: 'gradle.properties'
+
+                  env.serviceName = props.serviceName
+                  env.serviceVersion = props.version
+                  env.dockerRepo = props.dockerRepo
+                  env.channel = props.slackChannel
+
+                  env.configRepo = 'local-config' // todo: configuration by convention
+                  env.configRepoPath = 'devops.tomarv2.com/scm/xyz/local-config.git' // todo: configuration by convention
+                }
+
+                sendStartBuildNotification(env.channel)
+            }
+        }
+        stage('Checkout Source Code') {
+            steps {
+                checkout scm
+
+                script {
+                    env.imageTag = buildDockerTagFromHash(env.BRANCH_NAME)
+                    currentBuild.description = "${env.dockerRepo}:${env.imageTag}"
+                }
+            }
+        }
+        stage('Compile') {
+            steps {
+                sh "./gradlew clean shadowJar"
+            }
+        }
+        stage('Test') {
+            steps {
+                withSonarQubeEnv('Kubernetes Sonarqube') {
+                    sh "./gradlew -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.branch=${env.BRANCH_NAME} clean build sonarqube"
+                }
+            }
+            post {
+                failure {
+                    sh "docker-compose logs"
+                    sh "docker-compose down"
+                }
+            }
+        }
+        stage('Containerize') {
+            steps {
+                buildDockerContainer()
+            }
+        }
+        stage('Push To Registry') {
+            when {
+                branch "master"
+            }
+            steps {
+                tagAndPushDockerContainer(env.serviceName, env.dockerRepo, env.imageTag)
+            }
+        }
+        stage('Update Config Repo Image Tag') {
+            when {
+                branch "master"
+            }
+            steps {
+                updateConfigRepoImageTag(env.dockerRepo, env.imageTag, env.configRepo, env.configRepoPath)
+            }
+        }
+    }
+    post {
+        always {
+            sendEndBuildNotification(currentBuild.currentResult, env.channel, currentBuild.description)
+            sh "docker-compose down"
+        }
+    }
+}
