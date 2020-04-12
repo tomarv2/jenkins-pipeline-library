@@ -3,7 +3,7 @@
 def call(def gitProject, def gitRepo) {
 
     withCredentials([usernamePassword(credentialsId: 'git-credentials', passwordVariable: 'password', usernameVariable: 'username')]) {
-        sh "curl -u ${username}:${password} -X POST -H \"Accept: application/json\"  -H \"Content-Type: application/json\" \"http://demo.bitbucket.com/projects/${gitProject}/repos/\" -d '{\"name\": \"${gitRepo}\"}'"
+        sh "curl -u ${username}:${password} -X POST -H \"Accept: application/json\"  -H \"Content-Type: application/json\" \"http://demo.github.com/projects/${gitProject}/repos/\" -d '{\"name\": \"${gitRepo}\"}'"
     }
 
 }

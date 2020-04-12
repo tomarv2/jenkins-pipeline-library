@@ -1,18 +1,18 @@
 #/bin/sh
-BITBUCKET_URL="http://demo.bitbucket.com"
+GITHUB_URL="http://demo.github.com"
 
-BITBUCKET_USER=$1
-BITBUCKET_PASSWORD=$2
+GITHUB_USER=$1
+GITHUB_PASSWORD=$2
 
-BITBUCKET_PROYECT=$3
-BITBUCKET_REPOSITORY=$4
+GITHUB_PROYECT=$3
+GITHUB_REPOSITORY=$4
 
 IFS=',' read -r -a USER_ARRAY <<< "$5"
 
 get_user () {
-    local BIBUCKET_USER_URL="${BITBUCKET_URL}/rest/api/1.0/users?filter=$1"
-    local USER_JSON=$(curl -u $BITBUCKET_USER:$BITBUCKET_PASSWORD -H "Content-Type: application/json" -X GET $BIBUCKET_USER_URL)
-    local BIBUCKET_ADD_REV="${BITBUCKET_URL}/rest/default-reviewers/1.0/projects/$BITBUCKET_PROYECT/repos/$BITBUCKET_REPOSITORY/condition"
+    local BIBUCKET_USER_URL="${GITHUB_URL}/rest/api/1.0/users?filter=$1"
+    local USER_JSON=$(curl -u $GITHUB_USER:$GITHUB_PASSWORD -H "Content-Type: application/json" -X GET $BIBUCKET_USER_URL)
+    local BIBUCKET_ADD_REV="${GITHUB_URL}/rest/default-reviewers/1.0/projects/$GITHUB_PROYECT/repos/$GITHUB_REPOSITORY/condition"
 
     if [ $(echo $USER_JSON| jq '.size') = 1 ]
     then
@@ -24,7 +24,7 @@ get_user () {
         DICT[display_name]=$(echo $USER_JSON | jq '.displayName')
         DICT[slug]=$(echo $USER_JSON | jq '.slug')
 
-        curl -u $BITBUCKET_USER:$BITBUCKET_PASSWORD -H "Content-Type: application/json" -X POST $BIBUCKET_ADD_REV -d '
+        curl -u $GITHUB_USER:$GITHUB_PASSWORD -H "Content-Type: application/json" -X POST $BIBUCKET_ADD_REV -d '
         {
          "reviewers": [
             {
@@ -59,7 +59,7 @@ get_user () {
         }'
 
     else
-        echo "EMAIL ${1} DOES NOT EXISTS ON BITBUCKET SERVER..."       
+        echo "EMAIL ${1} DOES NOT EXISTS ON GITHUB SERVER..."
         exit
     fi
 }
