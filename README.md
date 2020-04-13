@@ -6,6 +6,9 @@
 
 ![Image description](https://files.gitter.im/tomarv2/oy6L/Screen-Shot-2020-04-09-at-9.08.16-PM.png)
 
+<p align="center">
+  <img width="460" height="300" src="https://files.gitter.im/tomarv2/oy6L/Screen-Shot-2020-04-09-at-9.08.16-PM.png">
+</p>
 ***
 
 **Getting Started With Shared Library**
