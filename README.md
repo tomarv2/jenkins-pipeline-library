@@ -11,7 +11,9 @@
         <img src="https://img.shields.io/twitter/follow/varuntomar2019?style=social&logo=twitter"></a>
 </p>
 
-## Jenkins Shared Pipeline Libraries
+## Jenkins Shared Pipeline Library
+
+Collection of jenkins stages which can be glued together to setup mix and match pipelines.
 
 **Medium post:** https://medium.com/tomarv2/jenkins-shared-libraries-ab64f7acac68
 
