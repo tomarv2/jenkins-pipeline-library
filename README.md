@@ -27,7 +27,7 @@ Pipeline Shared Libraries plugin
 
 Other plugins may be required for specific library calls (i.e. AWS, Docker)
 
-### Getting Started With Shared Library
+### Getting started with Shared Library
 
 This library consists of `groovy` and `shell` scripts. 
 
@@ -56,7 +56,7 @@ This library consists of `groovy` and `shell` scripts.
 
 ### Example usage:
 
-#### Stage to end notification using Slack of build start:
+#### Stage to send notification using Slack of build start:
 ```
 stage('Start') {
    steps {
@@ -64,7 +64,7 @@ stage('Start') {
    }
 ```
 
-#### Stage to apply Kubernetes definitions based on branch name:
+#### Stage to apply Kubernetes definition based on branch name:
 ```
 stage('Apply Kubernetes Definitions') {
    when {
