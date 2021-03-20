@@ -33,11 +33,11 @@ This library consists of `groovy` and `shell` scripts.
 
 ### Structure of the repo:
 
- - ##### examples directory:
+ - #### examples directory:
     - `Build` -> artifact-repo (covering two use cases: `gradle` and `maven` projects)
     - `Deploy` -> config-repo (manage k8s, manage Terraform)
  
-- ##### vars directory(Shared Library):
+- #### vars directory(Shared Library):
     - List of `sh` and `groovy` scripts. Scripts are to build:
          
        - Manage `docker` images
@@ -56,7 +56,7 @@ This library consists of `groovy` and `shell` scripts.
 
 ### Example usage:
 
-#### Stage to end notification using Slack of build start.
+#### Stage to end notification using Slack of build start:
 ```
 stage('Start') {
    steps {
@@ -64,7 +64,7 @@ stage('Start') {
    }
 ```
 
-#### Stage tp apply Kubernetes definitions based on branch name
+#### Stage to apply Kubernetes definitions based on branch name:
 ```
 stage('Apply Kubernetes Definitions') {
    when {
