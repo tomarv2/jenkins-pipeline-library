@@ -15,9 +15,25 @@
 
 ### Medium post: [link](https://medium.com/tomarv2/jenkins-shared-libraries-ab64f7acac68)
 
+### What is a Shared Library
+
+A shared library is a collection of independent Groovy scripts which you pull into your Jenkinsfile at runtime.
+
+The best part is, the Shared Library can be stored  in a Git repository. It can be versioned, tagged, etc.
+
 :wave: Collection of jenkins stages which can be glued together to setup complex pipelines.
 
 :wave: Most of the groovy scripts are written for Kubernetes running on AWS.  This Project offers sample pipelines to easily implement CI/CD processes. The corresponding "Shared Library" (`vars`) provides a set of "steps" to build your own scenarios beyond defaults.
+
+### What’s inside a Shared Library
+
+Inside a Shared Library you’ll probably have two types of code:
+
+:wave: **Steps:** These are called Global Variables in Jenkins terminology, but these are the custom steps that you want to be available to all your Jenkins pipelines.
+
+For example, you can write a standard step to deploy an application, or perform a code review.
+
+:wave: **Other common code:** This might include helper classes, or common code that you might want to include inside pipeline steps.
 
 ### Prerequisites
 
@@ -55,6 +71,21 @@ This library consists of `groovy` and `shell` scripts.
 </p>
 
 ### Example usage:
+
+#### Use library in a pipeline
+
+To use shared library in a pipeline, you add `@Library('your-library-name')` to the top of your pipeline definition, or Jenkinsfile
+
+```
+@Library('pipeline-library-demo')_
+
+stage('Demo') {
+ echo 'Hello world'
+ sayHello 'Dave'
+}
+```
+
+**NOTE:** The underscore (_) is not a typo! You need this underscore if the line immediately after the @Library annotation is not an import statement.
 
 #### Stage to send notification using Slack of build start:
 ```
