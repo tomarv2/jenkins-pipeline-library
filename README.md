@@ -13,30 +13,29 @@
 
 ## Jenkins Shared Pipeline Library
 
-Collection of jenkins stages which can be glued together to setup complex pipelines.
-
 ### Medium post: [link](https://medium.com/tomarv2/jenkins-shared-libraries-ab64f7acac68)
 
-<p align="center">
-  <img width="900" height="500" src="https://files.gitter.im/tomarv2/oy6L/Screen-Shot-2020-04-09-at-9.08.16-PM.png">
-</p>
+:wave: Collection of jenkins stages which can be glued together to setup complex pipelines.
 
-:wave: Most of the groovy scripts here are written for running on Kubernetes environment running on AWS.
+:wave: Most of the groovy scripts are written for Kubernetes running on AWS.  This Project offers sample pipelines to easily implement CI/CD processes. The corresponding "Shared Library" (`vars`) provides a set of "steps" to build your own scenarios beyond defaults.
+
+### Prerequisites
+
+[Jenkins 2.277+](https://hub.docker.com/r/jenkins/jenkins/tags/?page=1&ordering=last_updated)
+Pipeline Shared Libraries plugin
+Other plugins may be required for specific library calls (i.e. AWS, Docker)
 
 ### Getting Started With Shared Library
 
 This library consists of `groovy` and `shell` scripts. 
 
-Clone this repo to get the basic structure of the shared library.
-
-
 ### Structure of the repo:
 
- - ##### jenkinsfile directory:
+ - ##### examples directory:
     - `Build` -> artifact-repo (covering two use cases: `gradle` and `maven` projects)
     - `Deploy` -> config-repo (manage k8s, manage Terraform)
  
-- ##### vars directory:
+- ##### vars directory(Shared Library):
     - List of `sh` and `groovy` scripts. Scripts are to build:
          
        - Manage `docker` images
@@ -48,13 +47,21 @@ Clone this repo to get the basic structure of the shared library.
        - Manage `NiFi`
        - Artifact management
    
+
+<p align="center">
+  <img width="900" height="500" src="https://files.gitter.im/tomarv2/oy6L/Screen-Shot-2020-04-09-at-9.08.16-PM.png">
+</p>
+
 ### Note :
 
 :information_source: There is a plan to split `Build` and `Deploy` and use **Jenkins** for building and **Spinnaker** for deploying.
 
- 
- 
+#### References:
 
+- https://github.com/jenkinsci/jenkins
+- https://plugins.jenkins.io/pipeline-aws/
+- https://plugins.jenkins.io/kubernetes/
+- https://www.jenkins.io/doc/book/pipeline/shared-libraries/
 
 
 
