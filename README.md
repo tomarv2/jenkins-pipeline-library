@@ -13,40 +13,45 @@
 
 ## Jenkins Shared Pipeline Library
 
-Collection of jenkins stages which can be glued together to setup mix and match pipelines.
+Collection of jenkins stages which can be glued together to setup complex pipelines.
 
-**Medium post:** https://medium.com/tomarv2/jenkins-shared-libraries-ab64f7acac68
+### Medium post: [link](https://medium.com/tomarv2/jenkins-shared-libraries-ab64f7acac68)
 
-***
 <p align="center">
   <img width="900" height="500" src="https://files.gitter.im/tomarv2/oy6L/Screen-Shot-2020-04-09-at-9.08.16-PM.png">
 </p>
 
+:wave: Most of the groovy scripts here are written for running on Kubernetes environment running on AWS.
 
-**Getting Started With Shared Library**
+### Getting Started With Shared Library
 
-In our case shared library consists of groovy and shell scripts. 
+This library consists of `groovy` and `shell` scripts. 
 
-You can clone this repo to get the basic structure of the shared library.
+Clone this repo to get the basic structure of the shared library.
 
-This repo contains list of all the files that we have are using to build and deploy our CICD.
 
-There is a plan to split `Build` and `Deploy` and use **Jenkins** for building and **Spinnaker** for deploying.
+### Structure of the repo:
 
-**Structure of the repo**
-
- - **sample-jenkinsfile:**
-    - Build -> artifact-repo (we are covering two use cases: `gradle` and `maven` projects, we are working on adding NiFi as we deploy lot of NiFi clusters)
-    - Deploy -> config-repo (deploy k8s, Terraform related files)
- - **vars:**
-    - List of all `sh` and `groovy` scripts
-    
- In case you want to use the repo on full or part of the the groovy script feel free to use them.
+ - ##### jenkinsfile directory:
+    - `Build` -> artifact-repo (covering two use cases: `gradle` and `maven` projects)
+    - `Deploy` -> config-repo (manage k8s, manage Terraform)
  
- I cannot take all credit for the files in here, I got help from my teammates.
- 
- 
- 
+- ##### vars directory:
+    - List of `sh` and `groovy` scripts. Scripts are to build:
+         
+       - Manage `docker` images
+       - Manage `Kubernetes` (Statefulset, Deployments, PVCs)
+       - Basic `Terraform` validation
+       - Run `Sonarqube`
+       - Manage `Git`(commits, approvals)
+       - Small components for `OPA(Open Policy Agent)`, `Spinnaker`
+       - Manage `NiFi`
+       - Artifact management
+   
+### Note :
+
+:information_source: There is a plan to split `Build` and `Deploy` and use **Jenkins** for building and **Spinnaker** for deploying.
+
  
  
 
