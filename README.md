@@ -11,7 +11,7 @@
         <img src="https://img.shields.io/twitter/follow/varuntomar2019?style=social&logo=twitter"></a>
 </p>
 
-## Jenkins Shared Pipeline Library
+## Jenkins Pipeline Library
 
 ### Medium post: [link](https://medium.com/tomarv2/jenkins-shared-libraries-ab64f7acac68)
 
@@ -22,7 +22,9 @@
 ### Prerequisites
 
 [Jenkins 2.277+](https://hub.docker.com/r/jenkins/jenkins/tags/?page=1&ordering=last_updated)
+
 Pipeline Shared Libraries plugin
+
 Other plugins may be required for specific library calls (i.e. AWS, Docker)
 
 ### Getting Started With Shared Library
@@ -52,7 +54,33 @@ This library consists of `groovy` and `shell` scripts.
   <img width="900" height="500" src="https://files.gitter.im/tomarv2/oy6L/Screen-Shot-2020-04-09-at-9.08.16-PM.png">
 </p>
 
-### Note :
+### Example usage:
+
+#### Stage to end notification using Slack of build start.
+```
+stage('Start') {
+   steps {
+       sendStartBuildNotification(env.channel)
+   }
+```
+
+#### Stage tp apply Kubernetes definitions based on branch name
+```
+stage('Apply Kubernetes Definitions') {
+   when {
+       anyOf{
+           branch "master"
+           branch "production"
+       }  
+   }
+   steps {
+       applyKubernetesChangesContext()
+   }
+}
+
+```
+
+### Note:
 
 :information_source: There is a plan to split `Build` and `Deploy` and use **Jenkins** for building and **Spinnaker** for deploying.
 
